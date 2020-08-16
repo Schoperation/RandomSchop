@@ -1,16 +1,23 @@
 package schoperation.RandomSchop.HowOldAreTheyAnyway;
 
+import schoperation.RandomSchop.core.RSThing;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class HowOldAreTheyAnyway
+public class HowOldAreTheyAnyway extends RSThing
 {
-    /*
-        This class/program can take in a birthdate or age (plus an optional, but recommended birthday) and output their age or birthdate (range) respectively,
+    /**
+     *   This class/program can take in a birthdate or age (plus an optional, but recommended birthday) and output their age or birthdate (range) respectively,
      */
+    public HowOldAreTheyAnyway(String name, String displayName)
+    {
+        super(name, displayName);
+    }
 
-    public static void main(String[] args)
+    @Override
+    public void main()
     {
         Scanner scan = new Scanner(System.in);
         boolean validInput = false;
@@ -45,7 +52,7 @@ public class HowOldAreTheyAnyway
     }
 
     // Asks for a date of birth, returns their age in years, weeks, etc....
-    private static void determineAge(Scanner scan)
+    private void determineAge(Scanner scan)
     {
         // Different formats
         DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -119,7 +126,7 @@ public class HowOldAreTheyAnyway
     /* Asks for an age, then asks for an optional birthday,
        then returns either a range of DOBs (if no birthday provided) or the exact birthdate.
      */
-    private static void determineDOB(Scanner scan)
+    private void determineDOB(Scanner scan)
     {
         // Get the info
         System.out.println("Enter in the age...");
@@ -142,7 +149,7 @@ public class HowOldAreTheyAnyway
             LocalDate birthdayThisYear = LocalDate.parse(birthday.toString(), inputDTF);
             System.out.println(birthdayThisYear);
 
-            
+
         }
     }
 }
