@@ -1,5 +1,7 @@
 package schoperation.RandomSchop.core;
 
+import schoperation.RandomSchop.panel.Panels;
+
 import javax.swing.*;
 
 public class RSThing
@@ -13,7 +15,6 @@ public class RSThing
     private String displayName;
 
     // The main panel/view associated with this thing. Of course, there may be multiple panels... soon
-    // TODO add currentlyDisplayedPanel???
     private JPanel mainPanel;
 
     public RSThing(String name, String displayName)
@@ -36,10 +37,13 @@ public class RSThing
      */
     public void setup()
     {
-        Main.toggleDefaultPanel(false);
+        JPanel test = new JPanel();
+        JLabel label = new JLabel("hello there");
+        test.add(label);
+        Panels.changePanel(test);
         // TODO test panel works, as long as it's added to the jframe (duh) and is set to visible
         this.main();
-        Main.toggleDefaultPanel(true);
+        Panels.changePanel(Panels.MENU_PANEL);
     }
 
     /**

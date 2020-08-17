@@ -1,8 +1,8 @@
 package schoperation.RandomSchop.HowOldAreTheyAnyway;
 
-import schoperation.RandomSchop.core.Main;
 import schoperation.RandomSchop.core.RSThing;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
