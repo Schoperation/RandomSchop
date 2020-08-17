@@ -3,6 +3,8 @@ package schoperation.RandomSchop.core;
 import schoperation.RandomSchop.panel.Panels;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RSThing
 {
@@ -16,6 +18,7 @@ public class RSThing
 
     // The main panel/view associated with this thing. Of course, there may be multiple panels... soon
     protected JPanel mainPanel;
+    protected List<JPanel> subPanels = new ArrayList<>();
 
     public RSThing(String name, String displayName)
     {
@@ -37,9 +40,9 @@ public class RSThing
      */
     public void setup()
     {
-        Panels.changePanel(mainPanel);
+        //Panels.changePanel(mainPanel);
         this.main();
-        Panels.changePanel(Panels.MENU_PANEL);
+        //Panels.changePanel(Panels.MENU_PANEL);
     }
 
     /**
@@ -58,5 +61,15 @@ public class RSThing
     public String getDisplayName()
     {
         return this.displayName;
+    }
+
+    /**
+     * Returns a list of all panels, with the main one being the first element.
+     */
+    public List<JPanel> getAllPanels()
+    {
+        List<JPanel> fullList = new ArrayList<>(subPanels);
+        fullList.add(0, mainPanel);
+        return fullList;
     }
 }

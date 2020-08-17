@@ -3,7 +3,6 @@ package schoperation.RandomSchop.HowOldAreTheyAnyway;
 import schoperation.RandomSchop.core.RSThing;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -12,6 +11,8 @@ public class HowOldAreTheyAnyway extends RSThing
 {
     /**
      *   This class/program can take in a birthdate or age (plus an optional, but recommended birthday) and output their age or birthdate (range) respectively,
+     *
+     *   Created March 14th 2020
      */
     public HowOldAreTheyAnyway(String name, String displayName)
     {

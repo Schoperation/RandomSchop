@@ -13,11 +13,12 @@ public class Main
 
     public static void main(String[] args)
     {
-        // Creating jframe, setting properties
-        createWindow();
+        // Creating jframe, setting properties... run on a different thread
+        javax.swing.SwingUtilities.invokeLater(Main::createWindow);
 
-        // Set initial panel
-        Panels.changePanel(Panels.MENU_PANEL);
+        // Add menu
+        //Panels.changePanel(Panels.MENU_PANEL);
+        Panels.MENU_PANEL.setVisible(true);
     }
 
     /**

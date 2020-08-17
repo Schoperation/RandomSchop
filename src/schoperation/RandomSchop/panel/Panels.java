@@ -11,7 +11,7 @@ public class Panels
      */
 
     // Menu panel, first panel user will see
-    public static final MenuPanel MENU_PANEL = new MenuPanel();
+    public static final MenuCardsPanel MENU_PANEL = new MenuCardsPanel();
 
     // Console panel, since most scripts will just deal with simple text I/O
     // TODO console panel
