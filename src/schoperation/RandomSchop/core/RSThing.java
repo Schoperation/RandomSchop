@@ -15,7 +15,7 @@ public class RSThing
     private String displayName;
 
     // The main panel/view associated with this thing. Of course, there may be multiple panels... soon
-    private JPanel mainPanel;
+    protected JPanel mainPanel;
 
     public RSThing(String name, String displayName)
     {
@@ -37,11 +37,7 @@ public class RSThing
      */
     public void setup()
     {
-        JPanel test = new JPanel();
-        JLabel label = new JLabel("hello there");
-        test.add(label);
-        Panels.changePanel(test);
-        // TODO test panel works, as long as it's added to the jframe (duh) and is set to visible
+        Panels.changePanel(mainPanel);
         this.main();
         Panels.changePanel(Panels.MENU_PANEL);
     }

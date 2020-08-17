@@ -2,6 +2,7 @@ package schoperation.RandomSchop.HowOldAreTheyAnyway;
 
 import schoperation.RandomSchop.core.RSThing;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,10 @@ public class HowOldAreTheyAnyway extends RSThing
     public HowOldAreTheyAnyway(String name, String displayName)
     {
         super(name, displayName);
+
+        // TODO this is just testing
+        this.mainPanel = new JPanel();
+        this.mainPanel.add(new JLabel("hello there"));
     }
 
     @Override
