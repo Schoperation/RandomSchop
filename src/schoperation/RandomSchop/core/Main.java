@@ -1,6 +1,5 @@
 package schoperation.RandomSchop.core;
 
-import schoperation.RandomSchop.panel.MenuCardsPanel;
 import schoperation.RandomSchop.panel.Panels;
 
 import javax.swing.*;
@@ -34,4 +33,16 @@ public class Main
         jframe.setResizable(true);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    /*
+        TODO Dumb ideas to add
+
+        - Simple calculator
+        - Model solar system
+        - Calculate pi
+        - Fibbonacci (import from haskell????)
+        - Calculate state/federal taxes
+        - Nuh uh uh! You didn't say the magic word!
+        - Epilepsy warning
+     */
 }

@@ -21,7 +21,7 @@ public class MenuCardsPanel extends JPanel
      * Initialized all scripts and panels here, to be added recursively in MenuCardsPanel
      */
     public static List<RSThing> masterList = Arrays.asList(
-            new HowOldAreTheyAnyway("howold", "How Old Are They, Anyway?"),
+            new HowOldAreTheyAnyway("how_old", "How Old Are They, Anyway?"),
             new DummyThing("dummy", "Dummy Thing")
     );
 
@@ -29,7 +29,6 @@ public class MenuCardsPanel extends JPanel
     {
         // Set layout and background color
         this.setLayout(new CardLayout());
-        //this.setBackground(Color.pink);
 
         // Add the dropdown menu
         JPanel dropDownMenuPanel = new JPanel();
@@ -40,13 +39,14 @@ public class MenuCardsPanel extends JPanel
         JComboBox<String> dropDownMenu = new JComboBox<>();
 
         // Add menu items. We'll also add the panels as cards to this panel while we're iterating.
-        for (RSThing thing : masterList)
+        for (int i = 0; i < masterList.size(); i++)
         {
-            dropDownMenu.addItem(thing.getDisplayName());
+            // The index is appended to the end of the string in order to make finding the script easier
+            dropDownMenu.addItem(masterList.get(i).getDisplayName() + " " + i);
 
             // TODO might need to redo this once i implement things with multiple panels
-            for (JPanel panel : thing.getAllPanels())
-                this.add(thing.getDisplayName(), panel);
+            for (JPanel panel : masterList.get(i).getAllPanels())
+                this.add(masterList.get(i).getDisplayName() + " " + i, panel);
         }
 
         dropDownMenu.setEditable(false);
@@ -68,8 +68,17 @@ public class MenuCardsPanel extends JPanel
         {
             if (e.getStateChange() == ItemEvent.SELECTED)
             {
+                // Show the correct panel and execute its respective main function.
                 CardLayout cl = (CardLayout)(Panels.MENU_CARDS_PANEL.getLayout());
                 cl.show(Panels.MENU_CARDS_PANEL, (String) e.getItem());
+
+                // Execute correct main method
+                String displayName = (String) e.getItem();
+                int index = Integer.parseInt(displayName.substring(displayName.length() - 1));
+
+                // Do it on seperate thread, not event dispatching thread
+                Thread thread = new Thread(() -> masterList.get(index).setup()); // TODO possibly change to main later??
+                thread.start();
             }
         }
     }

@@ -1,6 +1,7 @@
 package schoperation.RandomSchop.HowOldAreTheyAnyway;
 
 import schoperation.RandomSchop.core.RSThing;
+import schoperation.RandomSchop.panel.Panels;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,9 +21,14 @@ public class HowOldAreTheyAnyway extends RSThing
         super(name, displayName);
 
         // TODO this is just testing
+        /*
         this.mainPanel = new JPanel();
         this.mainPanel.add(new JLabel("hello there"));
         this.mainPanel.setBackground(Color.cyan);
+
+         */
+
+        this.mainPanel = Panels.CONSOLE_PANEL;
     }
 
     @Override
