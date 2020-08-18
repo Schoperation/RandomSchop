@@ -1,5 +1,6 @@
 package schoperation.RandomSchop.core;
 
+import schoperation.RandomSchop.panel.MenuCardsPanel;
 import schoperation.RandomSchop.panel.Panels;
 
 import javax.swing.*;
@@ -18,7 +19,8 @@ public class Main
 
         // Add menu
         //Panels.changePanel(Panels.MENU_PANEL);
-        Panels.MENU_PANEL.setVisible(true);
+        Panels.MENU_CARDS_PANEL.setVisible(true);
+        jframe.setVisible(true);
     }
 
     /**
@@ -31,6 +33,5 @@ public class Main
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(true);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jframe.setVisible(true);
     }
 }

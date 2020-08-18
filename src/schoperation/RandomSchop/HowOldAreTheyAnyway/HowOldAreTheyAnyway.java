@@ -3,6 +3,7 @@ package schoperation.RandomSchop.HowOldAreTheyAnyway;
 import schoperation.RandomSchop.core.RSThing;
 
 import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -21,6 +22,7 @@ public class HowOldAreTheyAnyway extends RSThing
         // TODO this is just testing
         this.mainPanel = new JPanel();
         this.mainPanel.add(new JLabel("hello there"));
+        this.mainPanel.setBackground(Color.cyan);
     }
 
     @Override

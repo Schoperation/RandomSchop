@@ -1,7 +1,5 @@
 package schoperation.RandomSchop.core;
 
-import schoperation.RandomSchop.panel.Panels;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +35,11 @@ public class RSThing
 
     /**
      * Contains some preemptive code that fires on every button press but would be redundant in every main() method. This is what is actually called, thus main() is called here.
+     * For now, there is no preemptive code but in case there is in the future, I will keep using it.
      */
     public void setup()
     {
-        //Panels.changePanel(mainPanel);
         this.main();
-        //Panels.changePanel(Panels.MENU_PANEL);
     }
 
     /**
@@ -61,6 +58,15 @@ public class RSThing
     public String getDisplayName()
     {
         return this.displayName;
+    }
+
+
+    /**
+     * Returns the main panel.
+     */
+    public JPanel getMainPanel()
+    {
+        return this.mainPanel;
     }
 
     /**

@@ -3,6 +3,7 @@ package schoperation.RandomSchop.panel;
 import schoperation.RandomSchop.core.RSThing;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class DummyThing extends RSThing
 {
@@ -15,6 +16,7 @@ public class DummyThing extends RSThing
         this.mainPanel = new JPanel();
         this.mainPanel.add(new JButton("hhhhh"));
         this.mainPanel.add(new JButton("lorem ipsum si dolor"));
+        this.mainPanel.setBackground(Color.blue);
     }
 
     @Override
