@@ -5,6 +5,7 @@ import schoperation.RandomSchop.panel.Panels;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -34,7 +35,11 @@ public class HowOldAreTheyAnyway extends RSThing
     @Override
     public void main()
     {
-        Scanner scan = new Scanner(System.in);
+        JTextArea console = (JTextArea) ((JScrollPane) this.mainPanel.getComponent(0)).getViewport().getView();
+        Scanner scan = new Scanner(new ByteArrayInputStream(console.getText().getBytes()));
+
+        // ((JTextArea) this.mainPanel.getComponent(0)).getText()
+        //System.out.println(this.mainPanel.getComponentCount());
         boolean validInput = false;
         String pick;
         System.out.println("How Old Are They Anyway? by Schoperation");
@@ -42,7 +47,14 @@ public class HowOldAreTheyAnyway extends RSThing
         while (!validInput)
         {
             System.out.println("Would you like to figure out someone's age (type age) or date of birth (type dob)?");
-            pick = scan.nextLine().toLowerCase();
+            if (!scan.hasNext())
+            {
+                scan.reset();
+                pick = "";
+            }
+
+            else
+                pick = scan.nextLine().toLowerCase();
 
             // Figure out pick
             if (pick.equals("age"))

@@ -72,6 +72,9 @@ public class MenuCardsPanel extends JPanel
                 CardLayout cl = (CardLayout)(Panels.MENU_CARDS_PANEL.getLayout());
                 cl.show(Panels.MENU_CARDS_PANEL, (String) e.getItem());
 
+                // Clear console panel
+                Panels.CONSOLE_PANEL.clear();
+
                 // Execute correct main method
                 String displayName = (String) e.getItem();
                 int index = Integer.parseInt(displayName.substring(displayName.length() - 1));

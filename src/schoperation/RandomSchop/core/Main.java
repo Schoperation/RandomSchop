@@ -28,7 +28,7 @@ public class Main
     private static void createWindow()
     {
         jframe = new JFrame("RandomSchop");
-        jframe.setSize(640, 480);
+        jframe.setSize(1280, 720);
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(true);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
