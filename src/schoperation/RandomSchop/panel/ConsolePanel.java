@@ -1,7 +1,6 @@
 package schoperation.RandomSchop.panel;
 
 import javax.swing.*;
-import javax.swing.text.Caret;
 import java.awt.*;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -28,6 +27,7 @@ public class ConsolePanel extends JPanel
 
         // Create scrollpane
         scroller = new JScrollPane(newOut.console, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroller.setAutoscrolls(true);
         this.add(scroller, BorderLayout.CENTER);
     }
 

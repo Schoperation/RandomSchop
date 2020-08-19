@@ -131,7 +131,7 @@ public class HowOldAreTheyAnyway extends RSThing
      */
     private void determineDOB()
     {
-        // Get the info
+        // Get the info, starting with age
         int age = 0;
 
         while (age <= 0)
@@ -148,28 +148,32 @@ public class HowOldAreTheyAnyway extends RSThing
         }
 
         // Grab birthday
-        String birthday = "";
-        DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("MM/dd");
+        StringBuilder birthday = new StringBuilder();
         boolean validBirthday = false;
 
         while (!validBirthday)
         {
-            birthday = (String) JOptionPane.showInputDialog(Main.jframe, "Enter in birthday... MM/dd (type zero if unavailable)", "Question", JOptionPane.PLAIN_MESSAGE, null, null, null);
+            birthday.append((String) JOptionPane.showInputDialog(Main.jframe, "Enter in birthday... MM/dd (type zero if unavailable)", "Question", JOptionPane.PLAIN_MESSAGE, null, null, null));
 
             // Check if zero or valid birthday
-            if (birthday.equals("0"))
+            if (birthday.toString().equals("0"))
                 ;
             else
             {
                 try
                 {
-                    LocalDate.parse(birthday, inputDTF);
+                    // Append a fake year because DateTimeFormatter can't handle MM/dd for some odd reason
+                    LocalDate.parse(birthday.append("/00").toString(), DateTimeFormatter.ofPattern("MM/dd/yy"));
                 }
                 catch (DateTimeParseException e)
                 {
                     System.out.println("Invalid birthday. Use format MM/dd (2 digit month/2 digit day). Or type 0 to skip this crap.");
+                    birthday.delete(0, birthday.length());
                     continue;
                 }
+
+                // Delete the hanging dummy year
+                birthday.delete(5, 8);
             }
 
             validBirthday = true;
@@ -177,14 +181,35 @@ public class HowOldAreTheyAnyway extends RSThing
 
         DateTimeFormatter outputDTF = DateTimeFormatter.ofPattern("E, MMM dd yyyy");
 
-        // Check if we'll use the birthday.. first if yes
-        if (!birthday.equals("0"))
+        // Check if we'll use the birthday or not...
+        if (birthday.toString().equals("0"))
+        {
+            // We have to output a range of birthdays
+            // They could've turned that age today, or perhaps tomorrow is their birthday. Thus, the range is either [today, age years ago] or [tomorrow, age+1 years ago]
+            LocalDate today = LocalDate.now();
+            System.out.println("Being currently " + age + " years old, their birthdate ranges from " + today.minusYears(age + 1).plusDays(1).format(outputDTF) + " to " + today.minusYears(age).format(outputDTF) + ".");
+        }
+        else
         {
             // Add the current year to the string
-            birthday = birthday + "/" + LocalDate.now().getYear();
-            DateTimeFormatter inputDTF2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-            LocalDate birthdayThisYear = LocalDate.parse(birthday, inputDTF2);
-            System.out.println(birthdayThisYear);
+            birthday.append("/");
+            birthday.append(LocalDate.now().getYear());
+            DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDate birthdayThisYear = LocalDate.parse(birthday.toString(), inputDTF);
+
+            /*
+                Two possible answers
+                    - If we haven't passed their birthday yet, they will turn age+1 this year. So subtract age+1 from the current year.
+                    - If we HAVE passed their birthday, just subtract age from the current year.
+             */
+            LocalDate birthDate = birthdayThisYear.minusYears(age);
+
+            System.out.println(birthdayThisYear.compareTo(LocalDate.now()) > 0);
+
+            if (birthdayThisYear.compareTo(LocalDate.now()) > 0)
+                birthDate = birthDate.minusYears(1);
+
+            System.out.println("They were born on " + birthDate.format(outputDTF) + ".");
         }
     }
 }
