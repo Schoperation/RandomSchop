@@ -13,13 +13,11 @@ public class DummyThing extends RSThing
     public DummyThing(String name, String displayName)
     {
         super(name, displayName);
-        /*
-        this.mainPanel = new JPanel();
-        this.mainPanel.add(new JButton("hhhhh"));
-        this.mainPanel.add(new JButton("lorem ipsum si dolor"));
+
+        this.mainPanel = new ConsolePanel();
+        this.mainPanel.add(new JButton("hhhhh"), BorderLayout.PAGE_START);
+        this.mainPanel.add(new JButton("lorem ipsum si dolor"), BorderLayout.PAGE_START);
         this.mainPanel.setBackground(Color.blue);
-         */
-        this.mainPanel = Panels.CONSOLE_PANEL;
     }
 
     @Override

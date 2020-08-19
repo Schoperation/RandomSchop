@@ -14,17 +14,16 @@ import java.util.List;
 public class MenuCardsPanel extends JPanel
 {
     /**
-     * This consists of two panels; the cards panel itself (that's the class), and another panel constructed, which consists of a dropdown menu and welcome text.
-     */
-
-    /**
      * Initialized all scripts and panels here, to be added recursively in MenuCardsPanel
      */
-    public static List<RSThing> masterList = Arrays.asList(
+    private static List<RSThing> masterList = Arrays.asList(
             new HowOldAreTheyAnyway("how_old", "How Old Are They, Anyway?"),
             new DummyThing("dummy", "Dummy Thing")
     );
 
+    /**
+     * This consists of two panels; the cards panel itself (that's the class), and another panel constructed, which consists of a dropdown menu and welcome text.
+     */
     public MenuCardsPanel()
     {
         // Set layout and background color
@@ -32,7 +31,7 @@ public class MenuCardsPanel extends JPanel
 
         // Add the dropdown menu
         JPanel dropDownMenuPanel = new JPanel();
-        dropDownMenuPanel.setBackground(Color.yellow.darker());
+        dropDownMenuPanel.setBackground(Color.LIGHT_GRAY);
         JLabel welcomeText = new JLabel("Use the dropdown to choose a thing: ");
         dropDownMenuPanel.add(welcomeText, BorderLayout.PAGE_START);
 
@@ -68,18 +67,20 @@ public class MenuCardsPanel extends JPanel
         {
             if (e.getStateChange() == ItemEvent.SELECTED)
             {
-                // Show the correct panel and execute its respective main function.
+                // Show the panel
                 CardLayout cl = (CardLayout)(Panels.MENU_CARDS_PANEL.getLayout());
                 cl.show(Panels.MENU_CARDS_PANEL, (String) e.getItem());
 
-                // Clear console panel
-                Panels.CONSOLE_PANEL.clear();
-
-                // Execute correct main method
+                // Find the object via index
                 String displayName = (String) e.getItem();
                 int index = Integer.parseInt(displayName.substring(displayName.length() - 1));
 
-                // Do it on seperate thread, not event dispatching thread
+                // Clear main console panel, along with the script's personal one if applicable
+                Panels.CONSOLE_PANEL.clear();
+                if (masterList.get(index).getMainPanel() instanceof ConsolePanel)
+                    ((ConsolePanel) masterList.get(index).getMainPanel()).clear();
+
+                // Execute correct main method... Do it on seperate thread, not event dispatching thread
                 Thread thread = new Thread(() -> masterList.get(index).setup()); // TODO possibly change to main later??
                 thread.start();
             }

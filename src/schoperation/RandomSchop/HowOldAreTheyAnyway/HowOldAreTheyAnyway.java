@@ -1,95 +1,72 @@
 package schoperation.RandomSchop.HowOldAreTheyAnyway;
 
+import schoperation.RandomSchop.core.Main;
 import schoperation.RandomSchop.core.RSThing;
 import schoperation.RandomSchop.panel.Panels;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 
 public class HowOldAreTheyAnyway extends RSThing
 {
     /**
      *   This class/program can take in a birthdate or age (plus an optional, but recommended birthday) and output their age or birthdate (range) respectively,
      *
-     *   Created March 14th 2020
+     *   <p> Created March 14th 2020 </p>
      */
     public HowOldAreTheyAnyway(String name, String displayName)
     {
         super(name, displayName);
-
-        // TODO this is just testing
-        /*
-        this.mainPanel = new JPanel();
-        this.mainPanel.add(new JLabel("hello there"));
-        this.mainPanel.setBackground(Color.cyan);
-
-         */
-
         this.mainPanel = Panels.CONSOLE_PANEL;
     }
 
     @Override
     public void main()
     {
-        JTextArea console = (JTextArea) ((JScrollPane) this.mainPanel.getComponent(0)).getViewport().getView();
-        Scanner scan = new Scanner(new ByteArrayInputStream(console.getText().getBytes()));
-
-        // ((JTextArea) this.mainPanel.getComponent(0)).getText()
-        //System.out.println(this.mainPanel.getComponentCount());
-        boolean validInput = false;
         String pick;
         System.out.println("How Old Are They Anyway? by Schoperation");
 
-        while (!validInput)
-        {
-            System.out.println("Would you like to figure out someone's age (type age) or date of birth (type dob)?");
-            if (!scan.hasNext())
-            {
-                scan.reset();
-                pick = "";
-            }
+        // Instead of a scanner, we can use dialog boxes with preset options or a simple textbox!! Woooaahh!
+        // Frame, Question, Dialog Title, Message Type, Custom icon, object array of choices, first selected choice
+        final Object[] options = {"Age", "Date of Birth"};
+        pick = (String) JOptionPane.showInputDialog(Main.jframe, "Would you like to figure out someone's age or date of birth?", "Question", JOptionPane.PLAIN_MESSAGE, null, options, "Age");
 
-            else
-                pick = scan.nextLine().toLowerCase();
-
-            // Figure out pick
-            if (pick.equals("age"))
-            {
-                determineAge(scan);
-                validInput = true;
-
-            }
-            else if (pick.equals("dob"))
-            {
-                determineDOB(scan);
-                validInput = true;
-            }
-            else
-            {
-                System.out.println("Invalid input. Type, without quotations, either \"age\" or \"dob\".");
-                scan.reset();
-            }
-        }
-
-        scan.close();
+        // Figure out pick
+        if (pick.equals(options[0]))
+            determineAge();
+        else
+            determineDOB();
     }
 
-    // Asks for a date of birth, returns their age in years, weeks, etc....
-    private void determineAge(Scanner scan)
+    // Asks for a date of birth, returns their age in years, weeks, etc...
+    private void determineAge()
     {
         // Different formats
         DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         DateTimeFormatter outputDTF = DateTimeFormatter.ofPattern("E, MMM dd yyyy");
-        String inputDate = "";
+        String inputDate;
+        LocalDate dob = null;
+        boolean validDate = false;
 
         // Grab the DOB
-        System.out.println("Enter in the date of birth... MM/dd/yyyy");
-        inputDate = scan.nextLine();
-        LocalDate dob = LocalDate.parse(inputDate, inputDTF);
+        while (!validDate)
+        {
+            inputDate = (String) JOptionPane.showInputDialog(Main.jframe, "Enter in the date of birth... MM/dd/yyyy", "Question", JOptionPane.PLAIN_MESSAGE, null, null, null);
+
+            try
+            {
+                dob = LocalDate.parse(inputDate, inputDTF);
+            }
+            catch (DateTimeParseException exception)
+            {
+                System.out.println("Invalid date, please use the format MM/dd/yyyy (2 digit month/2 digit day/4 digit year)");
+                continue;
+            }
+
+            validDate = true;
+        }
 
         // Subtract the DOB from the current date
         LocalDate currentDate = LocalDate.now();
@@ -147,22 +124,56 @@ public class HowOldAreTheyAnyway extends RSThing
         System.out.println("They are " + years + yearOrYears + months + monthOrMonths + "old.");
         System.out.println("That would be " + daysOld + dayOrDays2 + "old.");
         System.out.println(daysUntilBirthday + dayOrDays + "until their next birthday, on " + LocalDate.of(currentDate.getYear(), dob.getMonth(), dob.getDayOfMonth()).format(outputDTF) + ".");
-
     }
 
     /* Asks for an age, then asks for an optional birthday,
        then returns either a range of DOBs (if no birthday provided) or the exact birthdate.
      */
-    private void determineDOB(Scanner scan)
+    private void determineDOB()
     {
         // Get the info
-        System.out.println("Enter in the age...");
-        int age = scan.nextInt();
-        scan.nextLine();
+        int age = 0;
 
-        System.out.println("Enter in birthday... MM/dd (type zero if unavailable)");
-        StringBuilder birthday = new StringBuilder();
-        birthday.append(scan.nextLine());
+        while (age <= 0)
+        {
+            try
+            {
+                age = Integer.parseInt((String) JOptionPane.showInputDialog(Main.jframe, "Enter in the age", "Question", JOptionPane.PLAIN_MESSAGE, null, null, null));
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println("Invalid input dumbass. Enter an actual number.");
+                continue;
+            }
+        }
+
+        // Grab birthday
+        String birthday = "";
+        DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("MM/dd");
+        boolean validBirthday = false;
+
+        while (!validBirthday)
+        {
+            birthday = (String) JOptionPane.showInputDialog(Main.jframe, "Enter in birthday... MM/dd (type zero if unavailable)", "Question", JOptionPane.PLAIN_MESSAGE, null, null, null);
+
+            // Check if zero or valid birthday
+            if (birthday.equals("0"))
+                ;
+            else
+            {
+                try
+                {
+                    LocalDate.parse(birthday, inputDTF);
+                }
+                catch (DateTimeParseException e)
+                {
+                    System.out.println("Invalid birthday. Use format MM/dd (2 digit month/2 digit day). Or type 0 to skip this crap.");
+                    continue;
+                }
+            }
+
+            validBirthday = true;
+        }
 
         DateTimeFormatter outputDTF = DateTimeFormatter.ofPattern("E, MMM dd yyyy");
 
@@ -170,13 +181,10 @@ public class HowOldAreTheyAnyway extends RSThing
         if (!birthday.equals("0"))
         {
             // Add the current year to the string
-            birthday.append("/");
-            birthday.append(LocalDate.now().getYear());
-            DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-            LocalDate birthdayThisYear = LocalDate.parse(birthday.toString(), inputDTF);
+            birthday = birthday + "/" + LocalDate.now().getYear();
+            DateTimeFormatter inputDTF2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDate birthdayThisYear = LocalDate.parse(birthday, inputDTF2);
             System.out.println(birthdayThisYear);
-
-
         }
     }
 }

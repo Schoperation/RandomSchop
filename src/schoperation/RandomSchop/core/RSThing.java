@@ -1,6 +1,10 @@
 package schoperation.RandomSchop.core;
 
+import schoperation.RandomSchop.panel.ConsolePanel;
+import schoperation.RandomSchop.panel.Panels;
+
 import javax.swing.*;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +43,16 @@ public class RSThing
      */
     public void setup()
     {
-        this.main();
+        // Set textarea as new outputstream
+        if (this.mainPanel instanceof ConsolePanel)
+        {
+            PrintStream oldOut = System.out;
+            System.setOut(new PrintStream(((ConsolePanel) this.mainPanel).getOutputStream(), true));
+            this.main();
+            System.setOut(oldOut);
+        }
+        else
+            this.main();
     }
 
     /**
