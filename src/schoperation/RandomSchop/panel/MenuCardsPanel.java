@@ -3,6 +3,7 @@ package schoperation.RandomSchop.panel;
 import schoperation.RandomSchop.HowOldAreTheyAnyway.HowOldAreTheyAnyway;
 import schoperation.RandomSchop.core.Main;
 import schoperation.RandomSchop.core.RSThing;
+import schoperation.RandomSchop.fibonacci.Fibonacci;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +18,9 @@ public class MenuCardsPanel extends JPanel
      * Initialized all scripts and panels here, to be added recursively in MenuCardsPanel
      */
     private static List<RSThing> masterList = Arrays.asList(
+            new DummyThing("dummy", "Dummy Thing"),
             new HowOldAreTheyAnyway("how_old", "How Old Are They, Anyway?"),
-            new DummyThing("dummy", "Dummy Thing")
+            new Fibonacci("fibonacci", "Fibonacci Numbers")
     );
 
     /**

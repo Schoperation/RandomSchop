@@ -143,7 +143,6 @@ public class HowOldAreTheyAnyway extends RSThing
             catch (NumberFormatException e)
             {
                 System.out.println("Invalid input dumbass. Enter an actual number.");
-                continue;
             }
         }
 
@@ -203,8 +202,6 @@ public class HowOldAreTheyAnyway extends RSThing
                     - If we HAVE passed their birthday, just subtract age from the current year.
              */
             LocalDate birthDate = birthdayThisYear.minusYears(age);
-
-            System.out.println(birthdayThisYear.compareTo(LocalDate.now()) > 0);
 
             if (birthdayThisYear.compareTo(LocalDate.now()) > 0)
                 birthDate = birthDate.minusYears(1);
