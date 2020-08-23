@@ -40,7 +40,9 @@ public class HowOldAreTheyAnyway extends RSThing
             determineDOB();
     }
 
-    // Asks for a date of birth, returns their age in years, weeks, etc...
+    /**
+     * Asks for a date of birth, returns their age in years, weeks, etc...
+     */
     private void determineAge()
     {
         // Different formats
@@ -126,8 +128,9 @@ public class HowOldAreTheyAnyway extends RSThing
         System.out.println(daysUntilBirthday + dayOrDays + "until their next birthday, on " + LocalDate.of(currentDate.getYear(), dob.getMonth(), dob.getDayOfMonth()).format(outputDTF) + ".");
     }
 
-    /* Asks for an age, then asks for an optional birthday,
-       then returns either a range of DOBs (if no birthday provided) or the exact birthdate.
+    /**
+     *  Asks for an age, then asks for an optional birthday,
+     *  then returns either a range of DOBs (if no birthday provided) or the exact birthdate.
      */
     private void determineDOB()
     {

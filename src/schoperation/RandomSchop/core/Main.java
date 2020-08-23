@@ -17,7 +17,6 @@ public class Main
         javax.swing.SwingUtilities.invokeLater(Main::createWindow);
 
         // Add menu
-        //Panels.changePanel(Panels.MENU_PANEL);
         Panels.MENU_CARDS_PANEL.setVisible(true);
         jframe.setVisible(true);
     }
@@ -40,7 +39,6 @@ public class Main
         - Simple calculator
         - Model solar system
         - Calculate pi
-        - Fibbonacci (import from haskell????)
         - Calculate state/federal taxes
         - Nuh uh uh! You didn't say the magic word!
         - Epilepsy warning

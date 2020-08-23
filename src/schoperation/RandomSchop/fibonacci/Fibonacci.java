@@ -10,6 +10,12 @@ import java.awt.*;
 public class Fibonacci extends RSThing
 {
 
+    /**
+     * Simple Fibonacci thing. Can either ask for a specific number or an entire sequence.
+     * <p>Created August 22nd 2020</p>
+     * @param name
+     * @param displayName
+     */
     public Fibonacci(String name, String displayName)
     {
         super(name, displayName);
@@ -59,7 +65,7 @@ public class Fibonacci extends RSThing
     }
 
     /**
-     * Recursive Fibonacci sequence method; returns the nth fibonacci number. No negative numbers, O(n^2)
+     * Recursive Fibonacci sequence method; returns the nth fibonacci number. No negative numbers, O(2^n)
      * @param n integer
      * @return nth Fibonacci number
      */
