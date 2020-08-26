@@ -41,6 +41,7 @@ public class Main
         - Calculate pi
         - Calculate state/federal taxes
         - Nuh uh uh! You didn't say the magic word!
-        - Epilepsy warning
+        - Conspiracy parrot
+        - God word (press a key for a random word)
      */
 }

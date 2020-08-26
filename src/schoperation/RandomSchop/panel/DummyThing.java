@@ -1,9 +1,13 @@
 package schoperation.RandomSchop.panel;
 
+import schoperation.RandomSchop.core.Main;
 import schoperation.RandomSchop.core.RSThing;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DummyThing extends RSThing
 {
@@ -15,15 +19,27 @@ public class DummyThing extends RSThing
         super(name, displayName);
 
         this.mainPanel = new ConsolePanel();
-        this.mainPanel.add(new JButton("lorem ipsum si dolor"), BorderLayout.PAGE_START);
-        this.mainPanel.setBackground(Color.blue);
+        JButton submit = new JButton("lorem ipsum si dolor");
+        submit.addActionListener(new SubmitListener());
+        this.mainPanel.add(submit, BorderLayout.PAGE_START);
+        this.mainPanel.setBackground(Color.pink);
     }
 
     @Override
     public void main()
     {
-        System.out.println("heeeyy this is the dummy thing selected.");
-        System.out.println("Ya know, you should pick something actually useful. Use the dropdown.");
-        System.out.println("Haaalleeelluuuujah, Haaaalleeellluuuuujah, Haaaalleeluuuuuujah, HaaalleeluuuuuuuuuuuuuuuuOOUooouuuuuuuuuujah");
+        System.out.println("DASodjasiodjasiodjasodiasjdias");
+    }
+
+    /**
+     * action listener for submit button
+     */
+    private static class SubmitListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            // TODO button action
+        }
     }
 }
