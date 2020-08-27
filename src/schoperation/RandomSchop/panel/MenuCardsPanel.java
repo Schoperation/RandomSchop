@@ -33,7 +33,7 @@ public class MenuCardsPanel extends JPanel
 
             // TODO might need to redo this once i implement things with multiple panels
             for (JPanel panel : Panels.MASTER_LIST.get(i).getAllPanels())
-                this.add(Panels.MASTER_LIST.get(i).getDisplayName() + " " + i, panel);
+                this.add(Panels.MASTER_LIST.get(i).getName(), panel);
         }
 
         dropDownMenu.setEditable(false);
@@ -54,24 +54,7 @@ public class MenuCardsPanel extends JPanel
         public void itemStateChanged(ItemEvent e)
         {
             if (e.getStateChange() == ItemEvent.SELECTED)
-            {
-                // Show the panel
-                CardLayout cl = (CardLayout)(Panels.MENU_CARDS_PANEL.getLayout());
-                cl.show(Panels.MENU_CARDS_PANEL, (String) e.getItem());
-
-                // Find the object via index
-                String displayName = (String) e.getItem();
-                int index = Integer.parseInt(displayName.substring(displayName.length() - 1));
-
-                // Clear main console panel, along with the script's personal one if applicable
-                Panels.CONSOLE_PANEL.clear();
-                if (Panels.MASTER_LIST.get(index).getMainPanel() instanceof ConsolePanel)
-                    ((ConsolePanel) Panels.MASTER_LIST.get(index).getMainPanel()).clear();
-
-                // Execute correct main method... Do it on seperate thread, not event dispatching thread
-                Thread thread = new Thread(() -> Panels.MASTER_LIST.get(index).setup());
-                thread.start();
-            }
+                Panels.changePanel((String) e.getItem());
         }
     }
 }

@@ -31,7 +31,7 @@ public class RSThing
      *  !!! Override this when creating a new one. This method is executed upon button click. !!!
      *  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
-    public void main()
+    protected void main()
     {
 
     }
@@ -71,7 +71,6 @@ public class RSThing
     {
         return this.displayName;
     }
-
 
     /**
      * Returns the main panel.
