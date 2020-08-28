@@ -43,5 +43,8 @@ public class Main
         - Nuh uh uh! You didn't say the magic word!
         - Conspiracy parrot
         - God word (press a key for a random word)
+        - Chess
+        - Bouncing shapes
+        -
      */
 }

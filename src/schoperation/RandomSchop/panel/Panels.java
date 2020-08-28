@@ -34,15 +34,15 @@ public class Panels
      * Change main panel with a display name
      * @param displayName
      */
-    public static void changePanelWithDisplayName(String displayName)
+    public static void changePanelWithName(String name)
     {
         // Show the panel
         CardLayout cl = (CardLayout)(Panels.MENU_CARDS_PANEL.getLayout());
-        cl.show(Panels.MENU_CARDS_PANEL, displayName);
+        cl.show(Panels.MENU_CARDS_PANEL, name);
 
         // Find the object via index
         //String displayName = displayName;
-        int index = Integer.parseInt(displayName.substring(displayName.length() - 1));
+        int index = Integer.parseInt(name.substring(name.length() - 1));
 
         // Clear main console panel, along with the script's personal one if applicable
         Panels.CONSOLE_PANEL.clear();
