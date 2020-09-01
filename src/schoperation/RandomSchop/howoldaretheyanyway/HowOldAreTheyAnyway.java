@@ -1,4 +1,4 @@
-package schoperation.RandomSchop.HowOldAreTheyAnyway;
+package schoperation.RandomSchop.howoldaretheyanyway;
 
 import schoperation.RandomSchop.core.Main;
 import schoperation.RandomSchop.core.RSThing;

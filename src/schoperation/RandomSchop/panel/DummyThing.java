@@ -1,17 +1,11 @@
 package schoperation.RandomSchop.panel;
 
-import javafx.scene.shape.Circle;
-import schoperation.RandomSchop.core.Main;
 import schoperation.RandomSchop.core.RSThing;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Method;
-import java.util.Comparator;
-import java.util.function.Consumer;
 
 public class DummyThing extends RSThing
 {
@@ -27,14 +21,29 @@ public class DummyThing extends RSThing
             @Override
             public void paintComponent(Graphics g)
             {
-                g.drawOval(100,100,100,100);
+                super.paintComponent(g);
+                g.setColor(Color.green);
+
+                int i;
+                int j;
+                for (i = 0; i < 14; i++)
+                {
+                    for (j = 0; j < 14; j++)
+                    {
+                        if ((j % 2 == 0 && i % 2 == 0) || (j % 2 == 1 && i % 2 == 1))
+                            g.fillOval(100 * j, 100*i, 100, 100);
+                    }
+                }
             }
         };
 
+        this.mainPanel.setBackground(Color.blue);
+
         JButton submit = new JButton("lorem ipsum si dolor");
-        submit.addActionListener(new SubmitListener());
-        this.mainPanel.add(submit, BorderLayout.PAGE_START);
-        this.mainPanel.setBackground(Color.pink);
+        SubmitListener submitListener = new SubmitListener();
+        submit.addActionListener(submitListener);
+        this.mainPanel.add(submit, BorderLayout.CENTER);
+        this.mainPanel.add(submitListener.textArea, BorderLayout.CENTER);
     }
 
     @Override
@@ -53,6 +62,7 @@ public class DummyThing extends RSThing
         {
             textArea = new JTextArea();
             textArea.setSize(100, 50);
+            textArea.setColumns(30);
         }
 
         @Override
@@ -60,14 +70,8 @@ public class DummyThing extends RSThing
         {
             // Get text, figure out what's in it, and execute respective
             String text = textArea.getText();
-
-            for (RSThing thing : Panels.MASTER_LIST)
-            {
-                if (thing.getName().equals(text))
-                {
-
-                }
-            }
+            textArea.setText("");
+            Panels.changePanelWithName(text);
         }
     }
 }

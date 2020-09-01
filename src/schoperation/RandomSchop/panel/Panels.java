@@ -1,7 +1,6 @@
 package schoperation.RandomSchop.panel;
 
-import schoperation.RandomSchop.HowOldAreTheyAnyway.HowOldAreTheyAnyway;
-import schoperation.RandomSchop.core.Main;
+import schoperation.RandomSchop.howoldaretheyanyway.HowOldAreTheyAnyway;
 import schoperation.RandomSchop.core.RSThing;
 import schoperation.RandomSchop.fibonacci.Fibonacci;
 import schoperation.RandomSchop.rainbow.Rainbow;
@@ -31,8 +30,8 @@ public class Panels
     public static final MenuCardsPanel MENU_CARDS_PANEL = new MenuCardsPanel();
 
     /**
-     * Change main panel with a display name
-     * @param displayName
+     * Change main panel with just a name
+     * @param name
      */
     public static void changePanelWithName(String name)
     {
@@ -41,8 +40,22 @@ public class Panels
         cl.show(Panels.MENU_CARDS_PANEL, name);
 
         // Find the object via index
-        //String displayName = displayName;
-        int index = Integer.parseInt(name.substring(name.length() - 1));
+        int i;
+        int index = -1;
+        for (i = 0; i < MASTER_LIST.size(); i++)
+        {
+            if (MASTER_LIST.get(i).getName().equals(name))
+            {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1)
+        {
+            System.out.println("Couldn't find that thing... check spelling?");
+            return;
+        }
 
         // Clear main console panel, along with the script's personal one if applicable
         Panels.CONSOLE_PANEL.clear();
@@ -50,19 +63,19 @@ public class Panels
             ((ConsolePanel) Panels.MASTER_LIST.get(index).getMainPanel()).clear();
 
         // Execute correct main method... Do it on seperate thread, not event dispatching thread
-        Thread thread = new Thread(() -> Panels.MASTER_LIST.get(index).setup());
+        int finalIndex = index;
+        Thread thread = new Thread(() -> Panels.MASTER_LIST.get(finalIndex).setup());
         thread.start();
     }
 
     /**
-     * Change main panel with a display name
-     * @param name
+     * Change main panel with a displayname + index... used only by MenuCardsPanel
+     * @param displayName
      */
-    // TODO AHHHHHHHHHHHHH
-    public static void changePanel(String name)
+    protected static void changePanel(String displayName)
     {
         // Find the object via index
-        int index = Integer.parseInt(name.substring(name.length() - 1));
+        final int index = Integer.parseInt(displayName.substring(displayName.length() - 1));
 
         // Show the panel. Go to the first one to reset the "queue"
         CardLayout cl = (CardLayout)(Panels.MENU_CARDS_PANEL.getLayout());
