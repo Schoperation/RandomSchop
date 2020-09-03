@@ -1,5 +1,6 @@
 package schoperation.RandomSchop.panel;
 
+import schoperation.RandomSchop.bounce.BouncingShapes;
 import schoperation.RandomSchop.howoldaretheyanyway.HowOldAreTheyAnyway;
 import schoperation.RandomSchop.core.RSThing;
 import schoperation.RandomSchop.fibonacci.Fibonacci;
@@ -23,7 +24,8 @@ public class Panels
             new DummyThing("dummy", "Dummy Thing"),
             new HowOldAreTheyAnyway("how_old", "How Old Are They, Anyway?"),
             new Fibonacci("fibonacci", "Fibonacci Numbers"),
-            new Rainbow("rainbow", "Rainbow Background")
+            new Rainbow("rainbow", "Rainbow Background"),
+            new BouncingShapes("bouncing_shapes", "Bouncing Shapes")
     );
 
     // Menu panel, first panel user will see
