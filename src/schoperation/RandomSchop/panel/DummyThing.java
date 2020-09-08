@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Queue;
 
 public class DummyThing extends RSThing
 {
@@ -23,7 +22,7 @@ public class DummyThing extends RSThing
             public void paintComponent(Graphics g)
             {
                 super.paintComponent(g);
-                g.setColor(Color.green);
+                g.setColor(new Color(50, 135, 37));
 
                 int i;
                 int j;
@@ -38,7 +37,7 @@ public class DummyThing extends RSThing
             }
         };
 
-        this.mainPanel.setBackground(Color.blue);
+        this.mainPanel.setBackground(new Color(50, 175, 229));
 
         JButton submit = new JButton("lorem ipsum si dolor");
         SubmitListener submitListener = new SubmitListener();

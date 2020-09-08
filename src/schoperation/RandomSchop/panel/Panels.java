@@ -17,6 +17,7 @@ public class Panels
      */
 
     // Console panel, since most scripts will just deal with simple text I/O
+    // Use either JDialog boxes or a seperate JTextArea for grabbing input
     public static final ConsolePanel CONSOLE_PANEL = new ConsolePanel();
 
     // Initialized all scripts and panels here, to be added recursively in MenuCardsPanel
@@ -59,15 +60,7 @@ public class Panels
             return;
         }
 
-        // Clear main console panel, along with the script's personal one if applicable
-        Panels.CONSOLE_PANEL.clear();
-        if (Panels.MASTER_LIST.get(index).getMainPanel() instanceof ConsolePanel)
-            ((ConsolePanel) Panels.MASTER_LIST.get(index).getMainPanel()).clear();
-
-        // Execute correct main method... Do it on seperate thread, not event dispatching thread
-        int finalIndex = index;
-        Thread thread = new Thread(() -> Panels.MASTER_LIST.get(finalIndex).setup());
-        thread.start();
+        startThread(index);
     }
 
     /**
@@ -86,6 +79,11 @@ public class Panels
         for (i = 0; i < index; i++)
             cl.next(Panels.MENU_CARDS_PANEL);
 
+        startThread(index);
+    }
+
+    private static void startThread(int index)
+    {
         // Clear main console panel, along with the script's personal one if applicable
         Panels.CONSOLE_PANEL.clear();
         if (Panels.MASTER_LIST.get(index).getMainPanel() instanceof ConsolePanel)
