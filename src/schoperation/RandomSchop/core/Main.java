@@ -45,6 +45,7 @@ public class Main
         - God word (press a key for a random word)
         - Chess
         - Bouncing shapes
-        -
+        - dumb sorting algorithms
+        - file compression tests huffman trees ++
      */
 }
