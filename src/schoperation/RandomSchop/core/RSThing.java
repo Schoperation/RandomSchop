@@ -1,6 +1,6 @@
 package schoperation.RandomSchop.core;
 
-import schoperation.RandomSchop.panel.ConsolePanel;
+import schoperation.RandomSchop.graphics.panel.ConsolePanel;
 
 import javax.swing.*;
 import java.io.PrintStream;

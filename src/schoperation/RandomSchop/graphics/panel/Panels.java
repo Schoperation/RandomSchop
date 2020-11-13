@@ -1,10 +1,10 @@
-package schoperation.RandomSchop.panel;
+package schoperation.RandomSchop.graphics.panel;
 
-import schoperation.RandomSchop.bounce.BouncingShapes;
-import schoperation.RandomSchop.howoldaretheyanyway.HowOldAreTheyAnyway;
+import schoperation.RandomSchop.graphics.bounce.BouncingShapes;
+import schoperation.RandomSchop.graphics.howoldaretheyanyway.HowOldAreTheyAnyway;
 import schoperation.RandomSchop.core.RSThing;
-import schoperation.RandomSchop.fibonacci.Fibonacci;
-import schoperation.RandomSchop.rainbow.Rainbow;
+import schoperation.RandomSchop.graphics.fibonacci.Fibonacci;
+import schoperation.RandomSchop.graphics.rainbow.Rainbow;
 
 import java.awt.*;
 import java.util.Arrays;

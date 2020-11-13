@@ -1,4 +1,4 @@
-package schoperation.RandomSchop.bounce;
+package schoperation.RandomSchop.graphics.bounce;
 
 import schoperation.RandomSchop.core.Main;
 

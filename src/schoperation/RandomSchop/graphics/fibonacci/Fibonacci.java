@@ -1,8 +1,8 @@
-package schoperation.RandomSchop.fibonacci;
+package schoperation.RandomSchop.graphics.fibonacci;
 
 import schoperation.RandomSchop.core.Main;
 import schoperation.RandomSchop.core.RSThing;
-import schoperation.RandomSchop.panel.ConsolePanel;
+import schoperation.RandomSchop.graphics.panel.ConsolePanel;
 
 import javax.swing.*;
 import java.awt.*;

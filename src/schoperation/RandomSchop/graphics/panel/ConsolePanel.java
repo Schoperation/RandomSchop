@@ -1,4 +1,4 @@
-package schoperation.RandomSchop.panel;
+package schoperation.RandomSchop.graphics.panel;
 
 import javax.swing.*;
 import java.awt.*;

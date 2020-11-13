@@ -1,8 +1,8 @@
-package schoperation.RandomSchop.howoldaretheyanyway;
+package schoperation.RandomSchop.graphics.howoldaretheyanyway;
 
 import schoperation.RandomSchop.core.Main;
 import schoperation.RandomSchop.core.RSThing;
-import schoperation.RandomSchop.panel.Panels;
+import schoperation.RandomSchop.graphics.panel.Panels;
 
 import javax.swing.*;
 import java.time.LocalDate;

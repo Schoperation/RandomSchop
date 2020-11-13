@@ -1,4 +1,4 @@
-package schoperation.RandomSchop.rainbow;
+package schoperation.RandomSchop.graphics.rainbow;
 
 import schoperation.RandomSchop.core.RSThing;
 
