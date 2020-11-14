@@ -9,16 +9,15 @@ public class Pi
      */
     public void main()
     {
-        System.out.println("Yoohooo pi is 3.14");
-        calc1(100000);
+        calc2(1000000);
     }
 
     /**
      * Imagine the graph of y = sqrt(1 - x^2). The circle one.
      * We're going to take the first quadrant of it, from x = 0 to 1 and y = 0 to 1.
-     * Then, we'll constantly throw darts (random coords), and calculate the ratio between those inside of the circle and those outside.
+     * Then, we'll constantly throw darts (random coords), and calculate the ratio between those inside of the circle and the total.
      *
-     * Annnd it constantly prints out... 3.6611??
+     * That ratio turns out to be pi/4, so we'll multiply it by 4.
      * @param points
      */
     private void calc1(int points)
@@ -29,7 +28,7 @@ public class Pi
 
         // Generate random point, then determine if inside or outside
         int i;
-        while (true)
+        for (i = 0; i < points; i++)
         {
             float x = rand.nextFloat();
             float y = rand.nextFloat();
@@ -40,7 +39,30 @@ public class Pi
                 outsideCirc++;
 
             // Print ratio
-            System.out.println(insideCirc / outsideCirc);
+            System.out.println(insideCirc * 4 / (insideCirc + outsideCirc));
+        }
+    }
+
+    /**
+     * Uses the Leibniz formula to converge at the value of pi
+     * 1 - 4/3 + 4/5 - 4/7 + 4/9...
+     * Here, each term is two fractions in an infinite (well, not here but ya know) series
+     *
+     * sigma from n = 0 to infinity of:
+     *
+     *        4          4
+     *    -------- - --------
+     *     4n + 1     4n + 3
+     * @param terms
+     */
+    private void calc2(int terms)
+    {
+        double sum = 0.0;
+        int i;
+        for (i = 0; i < terms; i++)
+        {
+            sum += ((4.0 / (4.0 * i + 1.0)) - (4.0 / (4.0 * i + 3.0)));
+            System.out.println(sum);
         }
     }
 }

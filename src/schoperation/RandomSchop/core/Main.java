@@ -17,7 +17,6 @@ public class Main
 
         - Simple calculator
         - Model solar system
-        - Calculate pi
         - Calculate state/federal taxes
         - Nuh uh uh! You didn't say the magic word!
         - Conspiracy parrot
