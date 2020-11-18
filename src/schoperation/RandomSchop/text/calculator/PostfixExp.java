@@ -28,7 +28,7 @@ public class PostfixExp
 
         /*
            The while loop below is structured to loop until the stack is empty.
-           This'll happen when the last expression in parentheses is taken care of. Namely,
+           This'll happen when the last expression in parentheses is taken care of.
            Thus, the entire thing will be in parentheses! WOAAHHH
         */
         operators.push('(');
@@ -47,10 +47,27 @@ public class PostfixExp
             // If left parenthesis, push onto stack
             else if (c == '(')
                 operators.push(c);
+            else if (isOperator(c))
+            {
+                // Pop any operators of equal and higher precedence from the stack, and into the postfix expression
+                while (determinePrecedence(operators.peek(), c) >= 0)
+                    postfix.append(operators.pop());
 
-            // TODO finish
+                operators.push(c);
+            }
+            else if (c == ')')
+            {
+                // Pop all operators until we reach a left parenthesis, which will then be popped and deleted
+                while (operators.peek() != '(')
+                    postfix.append(operators.pop());
+
+                operators.pop();
+            }
+
+            i++;
         }
 
+        return postfix.toString();
     }
 
     /**
@@ -122,6 +139,4 @@ public class PostfixExp
                 return 0;
         }
     }
-
-
 }
