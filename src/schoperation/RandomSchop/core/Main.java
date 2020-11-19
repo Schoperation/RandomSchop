@@ -1,6 +1,7 @@
 package schoperation.RandomSchop.core;
 
 import schoperation.RandomSchop.graphics.panel.Panels;
+import schoperation.RandomSchop.text.calculator.Calculator;
 import schoperation.RandomSchop.text.pi.Pi;
 
 import javax.swing.*;
@@ -30,7 +31,8 @@ public class Main
         List of all text code snippet things
      */
     private static final List<TextThing> textThingList = Arrays.asList(
-            new TextThing("pi", "Calculate Pi", new Pi())
+            new TextThing("pi", "Calculate Pi", new Pi()),
+            new TextThing("calc", "Basic Calculator", new Calculator())
     );
 
     /**

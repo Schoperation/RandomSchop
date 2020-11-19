@@ -16,6 +16,11 @@ public class PostfixExp
         this.exp = convert ? convertToPostfix(exp) : exp;
     }
 
+    public String getExpression()
+    {
+        return this.exp;
+    }
+
     /**
      * Converts an infix expression to postfix.
      * @param infix
@@ -23,8 +28,9 @@ public class PostfixExp
      */
     private String convertToPostfix(String infix)
     {
-        // Create a stack for the operators
+        // Create a stack for the operators, and digits
         Stack<Character> operators = new Stack<>();
+        Stack<Character> digits = new Stack<>();
 
         /*
            The while loop below is structured to loop until the stack is empty.
@@ -32,7 +38,7 @@ public class PostfixExp
            Thus, the entire thing will be in parentheses! WOAAHHH
         */
         operators.push('(');
-        infix.concat(")");
+        infix = infix.concat(")");
         StringBuilder postfix = new StringBuilder();
 
         int i = 0;
@@ -41,14 +47,35 @@ public class PostfixExp
         {
             c = infix.charAt(i);
 
-            // If digit, add to postfix
+            // If digit, add to stack
             if (Character.isDigit(c))
-                postfix.append(infix.charAt(i));
+            {
+                digits.push(c);
+                //postfix.append(infix.charAt(i));
+            }
             // If left parenthesis, push onto stack
             else if (c == '(')
                 operators.push(c);
             else if (isOperator(c))
             {
+                // Pop any digits in the stack, and convert them to a postfix expression of single digits
+                // 369 = 3 * 100 + 6 * 10 + 9
+                //     = 3 * 10 ^ 2 + 6 * 10 ^ 1 + 9
+                //     = 3 * (5 * 2) ^ 2 + 6 * 5 * 2 ^ 1 + 9
+                // first part 3 * (5 * 2) ^ 10 = 352*2^*
+                // We can start at 10 ^ 0 since the digits are backwards.
+                int power = 0;
+                while (!digits.isEmpty())
+                {
+                    postfix.append(digits.pop().toString() + "52*" + power + "^*");
+                    power++;
+                }
+
+                power--;
+                int j;
+                for (j = 0; j < power; j++)
+                    postfix.append("+");
+
                 // Pop any operators of equal and higher precedence from the stack, and into the postfix expression
                 while (determinePrecedence(operators.peek(), c) >= 0)
                     postfix.append(operators.pop());
@@ -57,6 +84,19 @@ public class PostfixExp
             }
             else if (c == ')')
             {
+                // Pop all digits, just like in other else if statement
+                int power = 0;
+                while (!digits.isEmpty())
+                {
+                    postfix.append(digits.pop().toString() + "52*" + power + "^*");
+                    power++;
+                }
+
+                power--;
+                int j;
+                for (j = 0; j < power; j++)
+                    postfix.append("+");
+
                 // Pop all operators until we reach a left parenthesis, which will then be popped and deleted
                 while (operators.peek() != '(')
                     postfix.append(operators.pop());
@@ -68,6 +108,15 @@ public class PostfixExp
         }
 
         return postfix.toString();
+    }
+
+    /**
+     * Evaluates the postfix expression.
+     * @return
+     */
+    public int evaluate()
+    {
+        return 42;
     }
 
     /**
