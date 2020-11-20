@@ -112,11 +112,75 @@ public class PostfixExp
 
     /**
      * Evaluates the postfix expression.
-     * @return
+     * @return int answer
      */
     public int evaluate()
     {
-        return 42;
+        // Stack where we'll store our numbers
+        Stack<Integer> numbers = new Stack<>();
+
+        int i;
+        for (i = 0; i < exp.length(); i++)
+        {
+            char c = exp.charAt(i);
+
+            if (Character.isDigit(c))
+                numbers.push(Integer.parseInt("" + c));
+            else if (isOperator(c))
+            {
+                // Pop the first two elements (first is right side, second is left side)
+                // Then apply the respective operator we just read
+                int answer;
+                int right = numbers.pop();
+                int left = numbers.pop();
+
+                switch(c)
+                {
+                    case '+':
+                        answer = left + right;
+                        break;
+                    case '-':
+                        answer = left - right;
+                        break;
+                    case '*':
+                        answer = left * right;
+                        break;
+                    case '/':
+                        answer = left / right;
+                        break;
+                    case '%':
+                        answer = left % right;
+                        break;
+                    case '^':
+                        answer = (int) Math.pow(left, right);
+                        break;
+                    default:
+                        answer = left + right + 21;
+                        break;
+                }
+
+                numbers.push(answer);
+            }
+        }
+
+        return numbers.pop();
+    }
+
+    /**
+     * Prints out a stack. First element printed is the topmost element of the stack.
+     * Mostly for debugging purposes.
+     * @param stack
+     */
+    private void printStack(Stack<Integer> stack)
+    {
+        if (stack.isEmpty())
+            return;
+
+        int i = stack.pop();
+        System.out.print(i + ", ");
+        printStack(stack);
+
+        stack.push(i);
     }
 
     /**
@@ -124,7 +188,7 @@ public class PostfixExp
      * @param op
      * @return
      */
-    private boolean isOperator(char op)
+    protected static boolean isOperator(char op)
     {
         switch (op)
         {
