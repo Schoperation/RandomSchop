@@ -1,5 +1,7 @@
 package schoperation.RandomSchop.text.calculator;
 
+import java.util.Scanner;
+
 public class Calculator
 {
     /*
@@ -8,10 +10,26 @@ public class Calculator
      */
     public void main()
     {
-        String infix = "3+ 23-( 8-56 -270 0 -9 )+21  ";
-        //PostfixExp exp = new PostfixExp(infix, true);
-        System.out.println(validInfixExp(infix));
-        //System.out.println(exp.evaluate());
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter in an infix expression (e.g. 3 + 2 * 1).");
+        System.out.println("Operators: +, -, *, /, %, ^. Can use parentheses.");
+        System.out.println("Spaces are allowed but not required.");
+
+        String infix = "";
+        boolean validInput = false;
+        int errorCode = -1;
+        while (!validInput)
+        {
+            infix = scanner.nextLine();
+            errorCode = validInfixExp(infix);
+            if (errorCode == 0)
+                validInput = true;
+            else
+                System.out.println("Error. " + errorCode + ". Try again."); // TODO make exception
+        }
+
+        PostfixExp exp = new PostfixExp(infix, true);
+        System.out.println(exp.evaluate());
     }
 
     /**
