@@ -17,15 +17,18 @@ public class Calculator
 
         String infix = "";
         boolean validInput = false;
-        int errorCode = -1;
         while (!validInput)
         {
             infix = scanner.nextLine();
-            errorCode = validInfixExp(infix);
-            if (errorCode == 0)
-                validInput = true;
-            else
-                System.out.println("Error. " + errorCode + ". Try again."); // TODO make exception
+            try
+            {
+                validInput = validInfixExp(infix);
+            }
+            catch (InvalidInfixException e)
+            {
+                System.out.println(e.getMessage());
+                System.out.println("Try again:");
+            }
         }
 
         PostfixExp exp = new PostfixExp(infix, true);
@@ -37,7 +40,7 @@ public class Calculator
      * @param exp Infix expression.
      * @return 1 if valid, 0 otherwise.
      */
-    public int validInfixExp(String exp)
+    public boolean validInfixExp(String exp) throws InvalidInfixException
     {
         /*
             Go through the expression one by one, and keep track
@@ -70,26 +73,26 @@ public class Calculator
             // Rule out any possibilities that make it invalid. If none ruled out, it is valid.
             // No letters or weird characters
             if (!Character.isDigit(current) && !PostfixExp.isOperator(current) && current != ')' && current != '(' && current != ' ')
-                return 1000 + i;
+                throw new InvalidInfixException("Invalid character detected at position " + i + ": " + current);
             // E.g. 88 99 + 33 is invalid
             else if (Character.isDigit(current) && numberBeforeSpace)
-                return 2000 + i;
+                throw new InvalidInfixException("Found two numbers right by each other at position " + i + ".");
             // Parentheses
             // E.g. (3 *) is invalid
             else if (current == ')' && PostfixExp.isOperator(previous))
-                return 3000 + i;
+                throw new InvalidInfixException("Invalid closing parenthesis at position " + i + ".");
             // E.g. (* 3 + 2) is invalid
             else if (PostfixExp.isOperator(current) && previous == '(')
-                return 4000 + i;
+                throw new InvalidInfixException("Invalid opening parenthesis at position " + i + ".");
             // E.g. 4(3 * 2) is invalid, same with 4 (3 * 2)
             else if (current == '(' && (Character.isDigit(previous) || numberBeforeSpace))
-                return 5000 + i;
+                throw new InvalidInfixException("Invalid number in front of parenthesis at position " + i + ".");
             // E.g. (3 + 2) 4 is invalid, same with (3 + 2)4
             else if (Character.isDigit(current) && previous == ')')
-                return 6000 + i;
+                throw new InvalidInfixException("Invalid number after parenthesis at position " + i + ".");
             // Digits before operators... make sure there aren't two operators in a row
             else if (PostfixExp.isOperator(current) && !Character.isDigit(previous) && previous != ')')
-                return 7000 + i;
+                throw new InvalidInfixException("Found two operators in a row at position " + i + ": " + current + " and " + previous + ".");
             // Technical stuff
             // Keep track of parentheses
             else if (current == '(')
@@ -97,10 +100,8 @@ public class Calculator
             else if (current == ')')
                 numParentheses--;
             // numberBeforeSpace stuff
-            else if (current == ' ' && Character.isDigit(previous))
-                numberBeforeSpace = true;
             else
-                numberBeforeSpace = false;
+                numberBeforeSpace = current == ' ' && Character.isDigit(previous);
 
             // For counting
             if (PostfixExp.isOperator(current))
@@ -115,11 +116,11 @@ public class Calculator
 
         // Last checks
         if (numOperators != numNumbers - 1)
-            return 8000;
+            throw new InvalidInfixException("There appears to be " + (numNumbers - numOperators - 1) + " extra operator(s). Probably at the end.");
         else if (numParentheses != 0)
-            return 9000;
+            throw new InvalidInfixException("Parentheses improperly closed somewhere.");
         else
-            return 0;
+            return true;
     }
 
     /**
