@@ -16,15 +16,15 @@ public class Main
     /*
         TODO Dumb ideas to add
 
-        - Simple calculator
         - Model solar system
         - Calculate state/federal taxes
         - Nuh uh uh! You didn't say the magic word!
         - Conspiracy parrot
         - God word (press a key for a random word)
-        - Chess
-        - dumb sorting algorithms
-        - file compression tests huffman trees ++
+        - Chess (Multiplayer test?)
+        - Multiplayer whiteboard
+        - Dumb sorting algorithms
+        - File compression tests huffman trees ++
      */
 
     /*
