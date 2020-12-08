@@ -53,13 +53,19 @@ public class TCPServer
             Socket socket = serverSocket.accept();
             System.out.println("Accepted client! IP: " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort());
 
-            // Send an acknowlegement
+            // Create streams...
+            // First one writes text to the client, second one reads text from the client
             BufferedWriter outputStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            outputStream.write("Hello from the other siiiiide...");
-            //outputStream.close();
-
-            // Get data from request
             BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Send an acknowlegement
+            System.out.println("About to send acknowledgement...");
+            outputStream.write("Hello from the other siiiiide...");
+
+            // Wait for input...
+            System.out.println("Waiting for client input...");
+            while (!inputStream.ready())
+                ;
 
             // Start reading and print it to console
             String line = "";

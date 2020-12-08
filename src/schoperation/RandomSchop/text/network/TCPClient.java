@@ -50,15 +50,19 @@ public class TCPClient
             Socket socket = new Socket(address, port);
             System.out.println("Connected! Let's see if we can get the acknowledgement...");
 
-            // Attempt to receive acknowledgement
+            // Create streams...
+            // First one writes text to the server, second one reads text from the server
+            BufferedWriter outputStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Wait for input...
+            System.out.println("Waiting for server acknowledgement...");
+            while (!inputStream.ready())
+                ;
             System.out.println(inputStream.readLine());
-            //inputStream.close();
 
             // Now ask for message to send
-            BufferedWriter outputStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             Scanner scanner = new Scanner(System.in);
-
             String line = "";
             while (!line.toLowerCase().equals("over"))
             {
