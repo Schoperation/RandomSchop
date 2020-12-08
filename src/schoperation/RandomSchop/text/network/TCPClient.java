@@ -61,7 +61,7 @@ public class TCPClient
             BufferedReader inFromConsole = new BufferedReader(new InputStreamReader(System.in));
 
             // Send messages made by user until they enter in "."
-            System.out.println("You may now type message to the server. Enter in a blank line to stop.");
+            System.out.println("You may now type message to the server. Enter in a period (on its own blank line) to stop.");
             String userIn;
             while ((userIn = inFromConsole.readLine()) != null)
             {
