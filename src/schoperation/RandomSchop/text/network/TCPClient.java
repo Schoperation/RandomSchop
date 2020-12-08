@@ -48,18 +48,11 @@ public class TCPClient
         {
             System.out.println("Connecting to " + address + " at port " + port + "...");
             Socket socket = new Socket(address, port);
-            System.out.println("Connected! Let's see if we can get the acknowledgement...");
+            System.out.println("Connected!");
 
             // Create streams...
-            // First one writes text to the server, second one reads text from the server
+            // outputStream writes to the server
             BufferedWriter outputStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            // Wait for input...
-            System.out.println("Waiting for server acknowledgement...");
-            while (!inputStream.ready())
-                ;
-            System.out.println(inputStream.readLine());
 
             // Now ask for message to send
             Scanner scanner = new Scanner(System.in);
@@ -72,7 +65,6 @@ public class TCPClient
 
             // Close
             outputStream.close();
-            inputStream.close();
             scanner.close();
             socket.close();
         }

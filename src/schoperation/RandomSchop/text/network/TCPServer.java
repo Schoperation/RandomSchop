@@ -54,18 +54,15 @@ public class TCPServer
             System.out.println("Accepted client! IP: " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort());
 
             // Create streams...
-            // First one writes text to the client, second one reads text from the client
-            BufferedWriter outputStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            // First one reads text from the client
             BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            // Send an acknowlegement
-            System.out.println("About to send acknowledgement...");
-            outputStream.write("Hello from the other siiiiide...");
-
             // Wait for input...
+            /*
             System.out.println("Waiting for client input...");
             while (!inputStream.ready())
                 ;
+            */
 
             // Start reading and print it to console
             String line = "";
@@ -79,7 +76,6 @@ public class TCPServer
             // Close the connection
             socket.close();
             inputStream.close();
-            outputStream.close();
             serverSocket.close();
         }
         catch (IOException e)
