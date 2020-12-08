@@ -56,7 +56,7 @@ public class TCPServer
             // Send an acknowlegement
             BufferedWriter outputStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             outputStream.write("Hello from the other siiiiide...");
-            outputStream.close();
+            //outputStream.close();
 
             // Get data from request
             BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -73,6 +73,7 @@ public class TCPServer
             // Close the connection
             socket.close();
             inputStream.close();
+            outputStream.close();
             serverSocket.close();
         }
         catch (IOException e)

@@ -53,7 +53,7 @@ public class TCPClient
             // Attempt to receive acknowledgement
             BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             System.out.println(inputStream.readLine());
-            inputStream.close();
+            //inputStream.close();
 
             // Now ask for message to send
             BufferedWriter outputStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -68,6 +68,7 @@ public class TCPClient
 
             // Close
             outputStream.close();
+            inputStream.close();
             scanner.close();
             socket.close();
         }
