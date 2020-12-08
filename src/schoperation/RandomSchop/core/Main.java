@@ -2,6 +2,7 @@ package schoperation.RandomSchop.core;
 
 import schoperation.RandomSchop.graphics.panel.Panels;
 import schoperation.RandomSchop.text.calculator.Calculator;
+import schoperation.RandomSchop.text.network.NetworkTest;
 import schoperation.RandomSchop.text.pi.Pi;
 
 import javax.swing.*;
@@ -32,7 +33,8 @@ public class Main
      */
     private static final List<TextThing> textThingList = Arrays.asList(
             new TextThing("pi", "Calculate Pi", new Pi()),
-            new TextThing("calc", "Basic Calculator", new Calculator())
+            new TextThing("calc", "Basic Calculator", new Calculator()),
+            new TextThing("net", "Networking Test", new NetworkTest())
     );
 
     /**
