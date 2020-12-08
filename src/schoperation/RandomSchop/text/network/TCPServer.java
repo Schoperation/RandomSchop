@@ -30,9 +30,9 @@ public class TCPServer
         // Ask for port
         System.out.println("Port number?");
         int port = scanner.nextInt();
-        scanner.close();
 
         startServer(port, ip);
+        scanner.close();
     }
 
     /**
@@ -60,15 +60,21 @@ public class TCPServer
             // outToClient writes text to the client...
             PrintWriter outToClient = new PrintWriter(socket.getOutputStream(), true);
 
+            // Have a loop for taking in client input
             System.out.println("Waiting for client input...");
-            String input;
+            String input = "";
             while ((input = inFromClient.readLine()) != null)
+            {
+                if (input.equals("."))
+                    break;
                 System.out.println(input);
+            }
 
             // Close the connection
-            socket.close();
+            System.out.println("Client finished, closing...");
             inFromClient.close();
             outToClient.close();
+            socket.close();
             serverSocket.close();
         }
         catch (IOException e)
