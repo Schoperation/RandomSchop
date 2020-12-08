@@ -32,9 +32,9 @@ public class TCPClient
         String ip = scanner.nextLine();
         System.out.println("Port number?");
         int port = scanner.nextInt();
-        scanner.close();
 
         createClient(ip, port);
+        scanner.close();
     }
 
     /**
@@ -60,15 +60,18 @@ public class TCPClient
             // inFromConsole reads from the console...
             BufferedReader inFromConsole = new BufferedReader(new InputStreamReader(System.in));
 
-            // Send messages made by user until they hit enter on a blank line
+            // Send messages made by user until they enter in "."
             System.out.println("You may now type message to the server. Enter in a blank line to stop.");
             String userIn;
             while ((userIn = inFromConsole.readLine()) != null)
             {
+                if (userIn.equals("."))
+                    break;
                 outToServer.println(userIn); // Send to server
             }
 
             // Close
+            System.out.println("Closing...");
             outToServer.close();
             inFromServer.close();
             inFromConsole.close();
