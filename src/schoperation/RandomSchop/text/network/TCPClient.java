@@ -51,21 +51,27 @@ public class TCPClient
             System.out.println("Connected!");
 
             // Create streams...
-            // outputStream writes to the server
-            BufferedWriter outputStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            // outToServer writes to the server... true means autoflush the buffer
+            PrintWriter outToServer = new PrintWriter(socket.getOutputStream(), true);
 
-            // Now ask for message to send
-            Scanner scanner = new Scanner(System.in);
-            String line = "";
-            while (!line.toLowerCase().equals("over"))
+            // inFromServer reads from the server...
+            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // inFromConsole reads from the console...
+            BufferedReader inFromConsole = new BufferedReader(new InputStreamReader(System.in));
+
+            // Send messages made by user until they hit enter on a blank line
+            System.out.println("You may now type message to the server. Enter in a blank line to stop.");
+            String userIn;
+            while ((userIn = inFromConsole.readLine()) != null)
             {
-                line = scanner.nextLine();
-                outputStream.write(line);
+                outToServer.println(userIn); // Send to server
             }
 
             // Close
-            outputStream.close();
-            scanner.close();
+            outToServer.close();
+            inFromServer.close();
+            inFromConsole.close();
             socket.close();
         }
         catch (IOException e)

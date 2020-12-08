@@ -54,28 +54,21 @@ public class TCPServer
             System.out.println("Accepted client! IP: " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort());
 
             // Create streams...
-            // First one reads text from the client
-            BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            // inFromClient reads from the client...
+            BufferedReader inFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            // Wait for input...
-            /*
+            // outToClient writes text to the client...
+            PrintWriter outToClient = new PrintWriter(socket.getOutputStream(), true);
+
             System.out.println("Waiting for client input...");
-            while (!inputStream.ready())
-                ;
-            */
-
-            // Start reading and print it to console
-            String line = "";
-            while (!line.toLowerCase().equals("over"))
-            {
-                line = inputStream.readLine();
-                System.out.println(line);
-            }
-            System.out.println("Closing server...");
+            String input;
+            while ((input = inFromClient.readLine()) != null)
+                System.out.println(input);
 
             // Close the connection
             socket.close();
-            inputStream.close();
+            inFromClient.close();
+            outToClient.close();
             serverSocket.close();
         }
         catch (IOException e)
